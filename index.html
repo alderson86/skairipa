@@ -1,0 +1,757 @@
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  $nome = htmlspecialchars($_POST["nome"]);
+  $email = htmlspecialchars($_POST["email"]);
+  $objetivo = htmlspecialchars($_POST["objetivo"]);
+  $mensagem = htmlspecialchars($_POST["mensagem"]);
+
+  $to = "seuemail@exemplo.com"; // Substitua pelo seu email
+  $subject = "Novo Contato - Skairipa Personal";
+  $body = "Nome: $nome\nEmail: $email\nObjetivo: $objetivo\nMensagem:\n$mensagem";
+  $headers = "From: $email";
+
+  if (mail($to, $subject, $body, $headers)) {
+    $feedback = "Mensagem enviada com sucesso! Em breve entraremos em contato.";
+  } else {
+    $feedback = "Erro ao enviar a mensagem. Tente novamente.";
+  }
+}
+?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Skairipa Personal | Alcance Seu Potencial Máximo</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <style>
+    :root {
+      --primary-color: #00ffae; /* A cor de destaque vibrante */
+      --dark-bg: #0a0a0a;
+      --medium-bg: #1a1a1a;
+      --light-text: #e0e0e0;
+      --secondary-text: #a0a0a0;
+      --border-color: #333;
+    }
+
+    body {
+      background: var(--dark-bg);
+      color: var(--light-text);
+      font-family: 'Montserrat', sans-serif; /* Fonte moderna e legível */
+      line-height: 1.6;
+    }
+
+    /* ESTILO DA MARCA D'ÁGUA */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('https://png.pngtree.com/thumb_back/fh260/background/20230516/pngtree-gym-with-many-weights-in-dark-lighting-image_2549101.jpg'); /* SUBSTITUA PELA SUA IMAGEM */
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center center;
+      opacity: 0.05; /* Ajuste a opacidade (0.01 para bem sutil, 0.1 para um pouco mais visível) */
+      z-index: -1; /* Essencial para que a marca d'água fique no fundo */
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Oswald', sans-serif; /* Fonte mais forte para títulos */
+      color: var(--primary-color);
+    }
+
+    header {
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1549476466-932f38d4b8e2?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center; /* Imagem de fundo impactante */
+      background-size: cover;
+      color: #fff;
+      text-align: center;
+      padding: 100px 0;
+      border-bottom: 5px solid var(--primary-color);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    header h1 {
+      font-size: 4.5rem; /* Título maior e mais impactante */
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    header p {
+      font-size: 1.5rem;
+      color: var(--light-text);
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Navegação com tabs */
+    .nav-tabs {
+      background-color: var(--medium-bg);
+      border-bottom: 1px solid var(--border-color);
+      justify-content: center;
+      /* Adicionado para rolagem em dispositivos móveis */
+      overflow-x: auto;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch; /* Suaviza rolagem no iOS */
+      padding-bottom: 5px; /* Espaçamento para a scrollbar */
+    }
+    /* Esconde a barra de rolagem em navegadores WebKit */
+    .nav-tabs::-webkit-scrollbar {
+        display: none;
+    }
+    /* Esconde a barra de rolagem no Firefox */
+    .nav-tabs {
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+    }
+
+
+    .nav-tabs .nav-item {
+      display: inline-block; /* Para que as abas fiquem lado a lado na rolagem */
+      float: none; /* Remove flutuação para melhor controle */
+    }
+
+    .nav-tabs .nav-link {
+      color: var(--secondary-text);
+      padding: 15px 25px;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      border: none;
+      border-radius: 0;
+    }
+
+    .nav-tabs .nav-link.active {
+      background-color: var(--dark-bg);
+      border-color: var(--primary-color) var(--primary-color) var(--dark-bg);
+      color: var(--primary-color);
+      font-weight: 700;
+      transform: translateY(2px);
+    }
+
+    .nav-link:hover {
+      color: var(--primary-color);
+      background-color: #2a2a2a;
+    }
+
+    .tab-content {
+      background-color: var(--medium-bg);
+      padding: 40px;
+      border: 1px solid var(--border-color);
+      border-top: none;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      color: var(--primary-color);
+      text-align: center;
+      border-bottom: 2px solid var(--primary-color);
+      padding-bottom: 10px;
+      display: inline-block;
+      width: auto; /* Permite que a borda se ajuste ao texto */
+    }
+
+    .card {
+      background-color: #2a2a2a;
+      color: var(--light-text);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.6);
+    }
+
+    .card img {
+      height: 250px;
+      object-fit: cover;
+      filter: grayscale(20%);
+      transition: filter 0.3s ease;
+    }
+
+    .card:hover img {
+      filter: grayscale(0%);
+    }
+
+    .card-body {
+      padding: 25px;
+    }
+
+    .card-title {
+      color: var(--primary-color);
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+    }
+
+    .card-text {
+      color: var(--secondary-text);
+    }
+
+    .btn-primary {
+      background-color: var(--primary-color);
+      border: none;
+      padding: 12px 25px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 5px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: #00e69e;
+      transform: translateY(-2px);
+    }
+
+    .btn-dark {
+      background-color: var(--dark-bg);
+      border: 1px solid var(--primary-color);
+      color: var(--primary-color);
+      padding: 10px 20px;
+      font-size: 1rem;
+      border-radius: 5px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .btn-dark:hover {
+      background-color: var(--primary-color);
+      color: var(--dark-bg);
+    }
+
+    .form-control, .form-select {
+      background-color: #2a2a2a;
+      color: var(--light-text);
+      border: 1px solid var(--border-color);
+      padding: 10px 15px;
+      border-radius: 5px;
+    }
+
+    .form-control::placeholder {
+      color: var(--secondary-text);
+    }
+
+    .form-control:focus, .form-select:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 0.25rem rgba(0, 255, 174, 0.25);
+      background-color: #3a3a3a;
+    }
+
+    footer {
+      background: var(--dark-bg);
+      color: var(--secondary-text);
+      padding: 30px;
+      text-align: center;
+      margin-top: 60px;
+      border-top: 3px solid var(--primary-color);
+      font-size: 0.9rem;
+    }
+
+    /* Estilos específicos para as seções */
+    .plan-item, .result-item, .personnel-item, .product-item {
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .plan-price {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-top: 15px;
+    }
+
+    .plan-features ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 20px;
+    }
+
+    .plan-features li {
+      margin-bottom: 10px;
+      color: var(--light-text);
+    }
+
+    .plan-features li::before {
+      content: '✔';
+      color: var(--primary-color);
+      margin-right: 10px;
+    }
+
+    .team-member img {
+      border-radius: 50%;
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border: 3px solid var(--primary-color);
+      margin-bottom: 15px;
+      box-shadow: 0 0 15px rgba(0, 255, 174, 0.3);
+    }
+
+    .team-member h3 {
+      font-size: 1.8rem;
+      margin-bottom: 5px;
+    }
+
+    .team-member p {
+      color: var(--secondary-text);
+      font-size: 1rem;
+    }
+
+    .product-details p {
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+    }
+
+    .product-price {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-top: 15px;
+    }
+
+    /* Feedback de formulário */
+    .alert-success {
+      background-color: rgba(0, 255, 174, 0.1);
+      color: var(--primary-color);
+      border-color: var(--primary-color);
+    }
+    .alert-danger {
+      background-color: rgba(255, 0, 0, 0.1);
+      color: #ff5555;
+      border-color: #ff5555;
+    }
+
+    /* Media Queries para Responsividade */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 3rem; /* Menor em telas menores */
+      }
+
+      header p {
+        font-size: 1.2rem;
+      }
+
+      .nav-tabs .nav-link {
+        font-size: 0.9rem; /* Reduz o tamanho da fonte das abas */
+        padding: 12px 15px; /* Ajusta o padding */
+      }
+
+      .section-title {
+        font-size: 2rem; /* Títulos de seção menores */
+      }
+
+      .card-title {
+        font-size: 1.5rem; /* Títulos de card menores */
+      }
+
+      .plan-price, .product-price {
+        font-size: 2rem; /* Preços menores */
+      }
+
+      .team-member img {
+        width: 120px; /* Reduz tamanho da imagem do personal */
+        height: 120px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      header h1 {
+        font-size: 2.5rem; /* Ainda menor para celulares */
+      }
+
+      header p {
+        font-size: 1rem;
+      }
+
+      .tab-content {
+        padding: 20px; /* Reduz padding do conteúdo principal */
+      }
+
+      .section-title {
+        font-size: 1.8rem; /* Títulos de seção ainda menores */
+        margin-bottom: 20px;
+      }
+
+      .card-body {
+        padding: 15px; /* Reduz padding dos cards */
+      }
+
+      .card-title {
+        font-size: 1.3rem; /* Títulos de card menores */
+      }
+
+      .plan-price, .product-price {
+        font-size: 1.8rem; /* Preços ainda menores */
+      }
+
+      /* Garante que colunas de cards fiquem empilhadas em telas muito pequenas */
+      .row-cols-md-3 > *, .row-cols-md-2 > * {
+          width: 100%;
+          margin-bottom: 15px; /* Adiciona um espaço entre os cards empilhados */
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header class="animate__animated animate__fadeInDown">
+  <h1>SKAIRIPA PERSONAL</h1>
+  <p>LIBERE SEU POTENCIAL. TRANSFORME SEU CORPO. COM A SKAIRIPA.</p>
+</header>
+
+<div class="container mt-5">
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="planos-tab" data-bs-toggle="tab" data-bs-target="#planos" type="button" role="tab" aria-controls="planos" aria-selected="true">PLANOS</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="resultados-tab" data-bs-toggle="tab" data-bs-target="#resultados" type="button" role="tab" aria-controls="resultados" aria-selected="false">RESULTADOS</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="personais-tab" data-bs-toggle="tab" data-bs-target="#personais" type="button" role="tab" aria-controls="personais" aria-selected="false">NOSSOS PERSONAL TRAINERS</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="produtos-tab" data-bs-toggle="tab" data-bs-target="#produtos" type="button" role="tab" aria-controls="produtos" aria-selected="false">PRODUTOS E SUPLEMENTOS</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="pagamento-tab" data-bs-toggle="tab" data-bs-target="#pagamento" type="button" role="tab" aria-controls="pagamento" aria-selected="false">FORMAS DE PAGAMENTO</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="contato-tab" data-bs-toggle="tab" data-bs-target="#contato" type="button" role="tab" aria-controls="contato" aria-selected="false">FALE CONOSCO</button>
+    </li>
+  </ul>
+
+  <div class="tab-content p-4 border" id="myTabContent">
+    <div class="tab-pane fade show active" id="planos" role="tabpanel" aria-labelledby="planos-tab">
+      <h2 class="section-title animate__animated animate__fadeInUp">ESCOLHA SEU CAMINHO PARA O SUCESSO</h2>
+      <div class="row row-cols-1 row-cols-md-3 g-4 mt-4">
+        <div class="col animate__animated animate__fadeInUp animate__delay-0-2s">
+          <div class="card h-100 plan-item">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvwNX7fqGWxr8sbwm7P7WFHV2F_H4O327nZQ&s" class="card-img-top" alt="Plano Básico">
+            <div class="card-body d-flex flex-column">
+              <h3 class="card-title">PLANO BRONZE</h3>
+              <p class="card-text">Ideal para quem busca começar com o pé direito e ter um acompanhamento inicial.</p>
+              <div class="plan-price">R$ 99,90/mês</div>
+              <ul class="plan-features">
+                <li>✔ Acesso ao app M Fit Pro</li>
+                <li>✔ Treinos personalizados (2x/semana)</li>
+                <li>✔ Suporte via chat (horário comercial)</li>
+                <li>✔ Avaliação inicial de progresso</li>
+              </ul>
+              <div class="mt-auto">
+                <a href="#" class="btn btn-primary w-100">QUERO O BRONZE</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col animate__animated animate__fadeInUp animate__delay-0-4s">
+          <div class="card h-100 plan-item">
+            <img src="data:image/jpeg;base64,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">
+            <div class="card-body d-flex flex-column">
+              <h3 class="card-title">PLANO PRATA</h3>
+              <p class="card-text">O equilíbrio perfeito entre acompanhamento e flexibilidade para seus objetivos.</p>
+              <div class="plan-price">R$ 149,90/mês</div>
+              <ul class="plan-features">
+                <li>✔ Tudo do Plano Bronze</li>
+                <li>✔ Treinos personalizados (3x/semana)</li>
+                <li>✔ Dieta básica e sugestões nutricionais</li>
+                <li>✔ Suporte prioritário via app</li>
+              </ul>
+              <div class="mt-auto">
+                <a href="#" class="btn btn-primary w-100">ESCOLHER O PRATA</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col animate__animated animate__fadeInUp animate__delay-0-6s">
+          <div class="card h-100 plan-item">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBX6kyOTnXBH65zRph_onzDw1uopaKWiwdgw&s" class="card-img-top" alt="Plano Premium">
+            <div class="card-body d-flex flex-column">
+              <h3 class="card-title">PLANO OURO</h3>
+              <p class="card-text">O pacote mais completo para resultados acelerados e acompanhamento premium.</p>
+              <div class="plan-price">R$ 249,90/mês</div>
+              <ul class="plan-features">
+                <li>✔ Tudo do Plano Prata</li>
+                <li>✔ Treinos diários e personalizados</li>
+                <li>✔ Dieta avançada e acompanhamento nutricional</li>
+                <li>✔ Videochamadas mensais com personal</li>
+                <li>✔ Acesso a workshops exclusivos</li>
+              </ul>
+              <div class="mt-auto">
+                <a href="#" class="btn btn-primary w-100">ASSINAR O OURO</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-pane fade" id="resultados" role="tabpanel" aria-labelledby="resultados-tab">
+      <h2 class="section-title animate__animated animate__fadeInUp">SUA TRANSFORMAÇÃO COMEÇA AQUI</h2>
+      <div class="row row-cols-1 row-cols-md-2 g-4 mt-4">
+        <div class="col animate__animated animate__fadeInUp animate__delay-0-2s">
+          <div class="card h-100 result-item">
+            <img src="https://images.unsplash.com/photo-1532029377662-8e100d7d3d7d?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="Resultado 1">
+            <div class="card-body">
+              <h3 class="card-title">Ana S. - Perda de Peso e Energia</h3>
+              <p class="card-text">"Em 3 meses com o Skairipa Personal, perdi 10kg e minha energia explodiu! Os treinos são desafiadores, mas com o suporte do app M Fit Pro, mantive o foco e os resultados são incríveis."</p>
+            </div>
+          </div>
+        </div>
+        <div class="col animate__animated animate__fadeInUp animate__delay-0-4s">
+          <div class="card h-100 result-item">
+            <img src="https://images.unsplash.com/photo-1541592390-3320c24c7f0b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="Resultado 2">
+            <div class="card-body">
+              <h3 class="card-title">João P. - Ganho de Massa e Força</h3>
+              <p class="card-text">"Sempre tive dificuldade em ganhar massa. Com a periodização do Skairipa e a orientação nutricional, ganhei 5kg de massa magra e minha força nunca foi tão alta! Recomendo a todos."</p>
+            </div>
+          </div>
+        </div>
+        <div class="col animate__animated animate__fadeInUp animate__delay-0-6s">
+          <div class="card h-100 result-item">
+            <img src="https://images.unsplash.com/photo-1579126435032-6b9f29a0f44f?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="Resultado 3">
+            <div class="card-body">
+              <h3 class="card-title">Mariana C. - Performance e Resistencia</h3>
+              <p class="card-text">"Sou corredora e buscava melhorar meu tempo e resistência. O planejamento do Skairipa foi essencial, consegui bater meus recordes pessoais e me sinto muito mais preparada."</p>
+            </div>
+          </div>
+        </div>
+        <div class="col animate__animated animate__fadeInUp animate__delay-0-8s">
+          <div class="card h-100 result-item">
+            <img src="https://images.unsplash.com/photo-1596765796791-c8b5e91e9e9e?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="Resultado 4">
+            <div class="card-body">
+              <h3 class="card-title">Carlos D. - Reabilitação e Força Funcional</h3>
+              <p class="card-text">"Após uma lesão, precisava de um acompanhamento seguro. A equipe Skairipa Personal me ajudou a recuperar a mobilidade e fortalecer meu corpo de forma funcional, superando minhas expectativas."</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-pane fade" id="personais" role="tabpanel" aria-labelledby="personais-tab">
+      <h2 class="section-title animate__animated animate__fadeInUp">NOSSA EQUIPE DE ELITE</h2>
+      <p class="text-center mb-5 lead">Conheça os profissionais que irão te guiar em sua jornada de transformação.</p>
+      <div class="row row-cols-1 row-cols-md-3 g-4 mt-4">
+        <div class="col animate__animated animate__fadeInUp animate__delay-0-2s">
+          <div class="card h-100 text-center personnel-item">
+            <div class="card-body d-flex flex-column align-items-center">
+              <img src="https://images.unsplash.com/photo-1629837295750-f8e121e4b9f2?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="img-fluid mb-3" alt="Personal Trainer 1">
+              <h3 class="card-title">Bruno "O Forjador" Silva</h3>
+              <p class="card-text text-muted">Especialista em Força e Hipertrofia</p>
+              <p>Com mais de 10 anos de experiência, Bruno é conhecido por transformar corpos e mentes, elevando seus alunos a novos patamares de força e performance.</p>
+              <a href="#" class="btn btn-dark mt-auto">VER PERFIL</a>
+            </div>
+          </div>
+        </div>
+        <div class="col animate__animated animate__fadeInUp animate__delay-0-4s">
+          <div class="card h-100 text-center personnel-item">
+            <div class="card-body d-flex flex-column align-items-center">
+              <img src="https://images.unsplash.com/photo-1534349735955-46537a1f5f2a?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="img-fluid mb-3" alt="Personal Trainer 2">
+              <h3 class="card-title">Carla "A Águia" Mendes</h3>
+              <p class="card-text text-muted">Especialista em Performance Funcional e Emagrecimento</p>
+              <p>Carla tem uma abordagem holística, focando não apenas na estética, mas na saúde e bem-estar geral, ajudando seus alunos a atingirem seus objetivos de forma sustentável.</p>
+              <a href="#" class="btn btn-dark mt-auto">VER PERFIL</a>
+            </div>
+          </div>
+        </div>
+        <div class="col animate__animated animate__fadeInUp animate__delay-0-6s">
+          <div class="card h-100 text-center personnel-item">
+            <div class="card-body d-flex flex-column align-items-center">
+              <img src="https://images.unsplash.com/photo-1517836357463-d1f504359489?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="img-fluid mb-3" alt="Personal Trainer 3">
+              <h3 class="card-title">Rafael "O Estrategista" Costa</h3>
+              <p class="card-text text-muted">Especialista em Treino de Elite e Nutrição Esportiva</p>
+              <p>Rafael elabora estratégias de treino e nutrição personalizadas para atletas e pessoas que buscam alta performance, maximizando resultados com ciência e dedicação.</p>
+              <a href="#" class="btn btn-dark mt-auto">VER PERFIL</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-pane fade" id="produtos" role="tabpanel" aria-labelledby="produtos-tab">
+      <h2 class="section-title animate__animated animate__fadeInUp">POTENCIALIZE SEUS RESULTADOS</h2>
+      <p class="text-center mb-5 lead">Selecione os melhores produtos e suplementos para complementar sua jornada fitness.</p>
+      <div class="row row-cols-1 row-cols-md-2 g-4 mt-4">
+        <div class="col animate__animated animate__fadeInUp animate__delay-0-2s">
+          <div class="card h-100 product-item">
+            <img src="https://images.unsplash.com/photo-1614030104675-bc098c4d2d4f?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="Whey Protein">
+            <div class="card-body d-flex flex-column">
+              <h3 class="card-title">WHEY PROTEIN PREMIUM ISOLADO</h3>
+              <p class="card-text product-details">Otimize sua recuperação muscular e promova o crescimento com a mais pura proteína isolada. Absorção rápida e alto valor biológico.</p>
+              <div class="product-price">R$ 189,90</div>
+              <div class="mt-auto">
+                <a href="#" class="btn btn-primary w-100">ADICIONAR AO CARRINHO</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col animate__animated animate__fadeInUp animate__delay-0-4s">
+          <div class="card h-100 product-item">
+            <img src="https://images.unsplash.com/photo-1603597375253-dfc58b4b7c25?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="Creatina">
+            <div class="card-body d-flex flex-column">
+              <h3 class="card-title">CREATINA MONOHIDRATADA PURA</h3>
+              <p class="card-text product-details">Aumente sua força, potência e explosão nos treinos. Essencial para quem busca ganhos reais de desempenho e massa muscular.</p>
+              <div class="product-price">R$ 89,90</div>
+              <div class="mt-auto">
+                <a href="#" class="btn btn-primary w-100">ADICIONAR AO CARRINHO</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col animate__animated animate__fadeInUp animate__delay-0-6s">
+          <div class="card h-100 product-item">
+            <img src="https://images.unsplash.com/photo-1579737976192-d6b797825d0c?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="Pré-treino">
+            <div class="card-body d-flex flex-column">
+              <h3 class="card-title">PRÉ-TREINO ENERGIA MÁXIMA</h3>
+              <p class="card-text product-details">Eleve seu foco, energia e intensidade em cada sessão de treino. Fórmula avançada para performance otimizada.</p>
+              <div class="product-price">R$ 129,90</div>
+              <div class="mt-auto">
+                <a href="#" class="btn btn-primary w-100">ADICIONAR AO CARRINHO</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col animate__animated animate__fadeInUp animate__delay-0-8s">
+          <div class="card h-100 product-item">
+            <img src="https://images.unsplash.com/photo-1544367980-2a3a8d111270?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="Roupa esportiva">
+            <div class="card-body d-flex flex-column">
+              <h3 class="card-title">CAMISETA FITNESS M FIT PRO</h3>
+              <p class="card-text product-details">Conforto e estilo para seus treinos. Tecido respirável e design moderno, ideal para qualquer atividade física.</p>
+              <div class="product-price">R$ 69,90</div>
+              <div class="mt-auto">
+                <a href="#" class="btn btn-primary w-100">ADICIONAR AO CARRINHO</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-pane fade" id="pagamento" role="tabpanel" aria-labelledby="pagamento-tab">
+      <h2 class="section-title animate__animated animate__fadeInUp">OPÇÕES DE PAGAMENTO FLEXÍVEIS</h2>
+      <p class="text-center mb-5 lead">Facilitamos sua jornada para a melhor versão de você. Escolha a opção que melhor se encaixa no seu perfil.</p>
+      <div class="row g-4 mt-4 justify-content-center">
+        <div class="col-md-6 col-lg-4 animate__animated animate__fadeInUp animate__delay-0-2s">
+          <div class="card h-100 p-4 text-center">
+            <h3 class="card-title mb-3">CARTÃO DE CRÉDITO</h3>
+            <p class="card-text">Pague em até **12x sem juros** com as principais bandeiras. Pagamento seguro e instantâneo.</p>
+            <ul class="list-unstyled text-start mt-3">
+              <li><i class="bi bi-credit-card-fill me-2"></i> Visa, Mastercard, Elo, American Express</li>
+              <li><i class="bi bi-shield-lock-fill me-2"></i> Transação segura e criptografada</li>
+              <li><i class="bi bi-calendar-check-fill me-2"></i> Parcelamento flexível</li>
+            </ul>
+            <div class="mt-auto">
+              <a href="#" class="btn btn-primary w-100 mt-4">PAGAR COM CARTÃO</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 animate__animated animate__fadeInUp animate__delay-0-4s">
+          <div class="card h-100 p-4 text-center">
+            <h3 class="card-title mb-3">PIX</h3>
+            <p class="card-text">A forma mais rápida e prática de pagar! Confirmação imediata da sua assinatura.</p>
+            <ul class="list-unstyled text-start mt-3">
+              <li><i class="bi bi-qr-code me-2"></i> Pagamento via QR Code ou Copia e Cola</li>
+              <li><i class="bi bi-cash me-2"></i> Confirmação instantânea</li>
+              <li><i class="bi bi-shield-fill-check me-2"></i> Seguro e sem taxas adicionais</li>
+            </ul>
+            <div class="mt-auto">
+              <a href="#" class="btn btn-primary w-100 mt-4">PAGAR COM PIX</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 animate__animated animate__fadeInUp animate__delay-0-6s">
+          <div class="card h-100 p-4 text-center">
+            <h3 class="card-title mb-3">BOLETO BANCÁRIO</h3>
+            <p class="card-text">Pague seu plano com comodidade em qualquer banco ou casa lotérica.</p>
+            <ul class="list-unstyled text-start mt-3">
+              <li><i class="bi bi-file-earmark-text-fill me-2"></i> Gerado instantaneamente</li>
+              <li><i class="bi bi-clock-fill me-2"></i> Prazo de compensação de até 2 dias úteis</li>
+              <li><i class="bi bi-info-circle-fill me-2"></i> Ideal para quem não usa cartão</li>
+            </ul>
+            <div class="mt-auto">
+              <a href="#" class="btn btn-primary w-100 mt-4">GERAR BOLETO</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-5">
+        <p class="lead">Para outras opções ou dúvidas, entre em contato conosco.</p>
+        <a href="#contato" class="btn btn-dark btn-lg">FALE COM O SUPORTE</a>
+      </div>
+    </div>
+
+    <div class="tab-pane fade" id="contato" role="tabpanel" aria-labelledby="contato-tab">
+      <h2 class="section-title animate__animated animate__fadeInUp">ESTAMOS AQUI PARA AJUDAR</h2>
+      <p class="text-center mb-5 lead">Tem alguma dúvida, sugestão ou quer saber mais sobre a Skairipa Personal?</p>
+      <div class="row justify-content-center mt-4">
+        <div class="col-md-8 animate__animated animate__fadeInUp animate__delay-0-2s">
+          <div class="card p-4">
+            <div class="card-body">
+              <h3 class="card-title text-center mb-4">Envie Sua Mensagem</h3>
+              <?php if (isset($feedback)): ?>
+                <div class="alert <?php echo strpos($feedback, 'sucesso') !== false ? 'alert-success' : 'alert-danger'; ?> alert-dismissible fade show" role="alert">
+                  <?php echo $feedback; ?>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              <?php endif; ?>
+              <form method="POST" action="#contato">
+                <div class="mb-3">
+                  <label for="nome" class="form-label">Nome Completo</label>
+                  <input type="text" class="form-control" id="nome" name="nome" placeholder="Seu nome" required>
+                </div>
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email</label>
+                  <input type="email" class="form-control" id="email" name="email" placeholder="seuemail@exemplo.com" required>
+                </div>
+                <div class="mb-3">
+                  <label for="objetivo" class="form-label">Qual seu Objetivo?</label>
+                  <select class="form-select" id="objetivo" name="objetivo" required>
+                    <option selected disabled value="">Selecione...</option>
+                    <option value="Perda de Peso">Perda de Peso</option>
+                    <option value="Ganho de Massa Muscular">Ganho de Massa Muscular</option>
+                    <option value="Melhora de Performance">Melhora de Performance</option>
+                    <option value="Saúde e Bem-estar Geral">Saúde e Bem-estar Geral</option>
+                    <option value="Outro">Outro</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label for="mensagem" class="form-label">Sua Mensagem</label>
+                  <textarea class="form-control" id="mensagem" name="mensagem" rows="5" placeholder="Descreva sua dúvida ou o que você busca..."></textarea>
+                </div>
+                <div class="d-grid gap-2">
+                  <button type="submit" class="btn btn-primary btn-lg">ENVIAR MENSAGEM</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-center mt-5">
+        <div class="col-md-8 text-center">
+          <h3 class="section-title small">NOSSOS CONTATOS</h3>
+          <p class="lead mt-4">Prefere falar diretamente? Estamos disponíveis!</p>
+          <ul class="list-unstyled fs-5 mt-3">
+            <li><i class="bi bi-whatsapp me-2"></i> WhatsApp: <a href="https://wa.me/55DDONUMERO" target="_blank" class="text-decoration-none" style="color: var(--primary-color);">+55 (XX) 9XXXX-XXXX</a> (Atendimento 09h às 18h)</li>
+            <li><i class="bi bi-envelope-fill me-2"></i> Email: <a href="mailto:contato@skairipapersonal.com.br" class="text-decoration-none" style="color: var(--primary-color);">contato@skairipapersonal.com.br</a></li>
+            <li><i class="bi bi-instagram me-2"></i> Instagram: <a href="https://instagram.com/skairipapersonal" target="_blank" class="text-decoration-none" style="color: var(--primary-color);">@skairipapersonal</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>&copy; 2025 Skairipa Personal. Todos os direitos reservados. | Desenvolvido para M Fit Pro.</p>
+  <p>Construa seu legado. Treine com Skairipa.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
